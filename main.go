@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"strings"
+	"time"
 )
 
 const barkSound = "woof"
@@ -21,27 +22,26 @@ func main() {
 	var userName string
 	// is the same as var userName string = ""
 	var bellyRubs uint
-	fmt.Printf("dogName is a %T, remainingBarks is type %T and userName is %T. \n", dogName, remainingBarks, userName)
+	var maxBellyRubs uint = 5
+	// fmt.Printf("dogName is a %T, remainingBarks is type %T and userName is %T. \n", dogName, remainingBarks, userName)
 
 	// Scan take user input as a parameter
 	// a pointer directs to a memory address where a variable is stored, concept from C, C++ (not in java f.ex.)
-	fmt.Println(&userName)
+	// fmt.Println(&userName)
 
 	// direct Scan to the memory address
 	fmt.Println("Enter your first name: ")
 	fmt.Scan(&userName)
 
 	fmt.Printf("Hi %v! Nice to meet you. \n", userName)
-	fmt.Println("How many belly rubs would you like to offer? You may offer between 0 and 5 rubs at a time.")
+	fmt.Printf("How many belly rubs would you like to offer? You may offer between 0 and %v rubs at a time. \n", maxBellyRubs)
 	fmt.Scan(&bellyRubs)
-	fmt.Printf("You've offered %v belly rubs. ", bellyRubs)
-
-	// func bark (numberOfBarks uint) (string, error) {}
+	fmt.Printf("You've offered %v belly rubs.\n", bellyRubs)
 
 	if bellyRubs > 5 {
-		fmt.Println("This is way more than your neighbours can take! You can only rub the belly 5 times at once.")
-		bellyRubs = 5
-		remainingBarks -= 5
+		fmt.Printf("This is way more than your neighbours can take! You can only rub the belly %v times at once. \n", maxBellyRubs)
+		bellyRubs = maxBellyRubs
+		remainingBarks -= maxBellyRubs
 	}
 
 	if bellyRubs > remainingBarks {
@@ -50,12 +50,25 @@ func main() {
 		remainingBarks = 0
 	}
 
-	var barks = []string{}
-
+	fmt.Println("Rubbing the belly...")
+	var loadingRubbingSigns = []string{"/", "-", "\\", "|"}
 	for i := 0; i <= int(bellyRubs); i++ {
+		for _, sign := range loadingRubbingSigns {
+			fmt.Printf("\r %v", sign)
+			time.Sleep(150 * time.Millisecond)
+		}
+	}
+
+	fmt.Println("\rRubbing complete. Initiating barking. ")
+	time.Sleep(500 * time.Millisecond)
+
+	var barks []string
+
+	for i := 0; i < int(bellyRubs); i++ {
 		barks = append(barks, barkSound)
 	}
+
 	barkingString := strings.Join(barks, ", ")
-	fmt.Printf("%s!", barkingString)
+	fmt.Printf("\n%s! \n\n", barkingString)
 
 }
