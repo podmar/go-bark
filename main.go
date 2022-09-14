@@ -1,34 +1,61 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"strings"
+)
+
+const barkSound = "woof"
 
 func main() {
 	// var dogName = "Lea" // is equal to -->
-	dogName := "Lea"             // create a variable and assign a value, no constants and no possibility to explicitly declare a type
+	dogName := "Lea" // create a variable and assign a value, no constants and no possibility to explicitly declare a type
+	// used for short lived variables, result of a function call or an iterator in a function
+
 	const numberOfBarks = 50     // total number of barks, type defined implicitly
 	var remainingBarks uint = 50 // explicit specification mostly used when type is to be different than the default, uint is a non-negative number
-	const barkSound = "woof"
 
 	fmt.Println("Hello World, I am", dogName)
-	fmt.Printf("I have %v loud barks at my disposal, %v, and %v are left. \n", numberOfBarks, barkSound, remainingBarks)
+	fmt.Printf("I have %v loud barks at my disposal, %s, and %v are left. \n", numberOfBarks, barkSound, remainingBarks)
 
 	var userName string
-	var bellyRubs int
+	// is the same as var userName string = ""
+	var bellyRubs uint
 	fmt.Printf("dogName is a %T, remainingBarks is type %T and userName is %T. \n", dogName, remainingBarks, userName)
 
 	// Scan take user input as a parameter
 	// a pointer directs to a memory address where a variable is stored, concept from C, C++ (not in java f.ex.)
 	fmt.Println(&userName)
+
 	// direct Scan to the memory address
 	fmt.Println("Enter your first name: ")
 	fmt.Scan(&userName)
 
-	//var userProvokeBarks int
-	fmt.Println("How many belly rubs do you want to offer? You may offer between 0 and 5 rubs at a time.")
+	fmt.Printf("Hi %v! Nice to meet you. \n", userName)
+	fmt.Println("How many belly rubs would you like to offer? You may offer between 0 and 5 rubs at a time.")
 	fmt.Scan(&bellyRubs)
-	fmt.Printf("Hey %v, thanks for offering %v belly rubs.", userName, bellyRubs)
+	fmt.Printf("You've offered %v belly rubs. ", bellyRubs)
 
-	// userProvokeBarks = 2
+	// func bark (numberOfBarks uint) (string, error) {}
 
-	// need to define type explicitly when declaring without assignment
+	if bellyRubs > 5 {
+		fmt.Println("This is way more than your neighbours can take! You can only rub the belly 5 times at once.")
+		bellyRubs = 5
+		remainingBarks -= 5
+	}
+
+	if bellyRubs > remainingBarks {
+		fmt.Println("I can't take that much belly rubbing now, I need to sleep first.")
+		bellyRubs = remainingBarks
+		remainingBarks = 0
+	}
+
+	var barks = []string{}
+
+	for i := 0; i <= int(bellyRubs); i++ {
+		barks = append(barks, barkSound)
+	}
+	barkingString := strings.Join(barks, ", ")
+	fmt.Printf("%s!", barkingString)
+
 }
