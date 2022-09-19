@@ -15,8 +15,8 @@ func gatherUserName() string {
 	return userName
 }
 
-func askForRubs() uint {
-	var bellyRubs uint
+func askForRubs() int {
+	var bellyRubs int
 
 	fmt.Printf("How many belly rubs would you like to offer? You may offer between 0 and %v rubs at a time. \n", maxBellyRubs)
 	fmt.Scan(&bellyRubs)

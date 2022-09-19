@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"math"
 	"time"
 )
 
@@ -10,18 +11,20 @@ func greetUser() {
 	fmt.Printf("I have %v loud barks at my disposal, %s! ... and %v are left. \n", numberOfBarks, barkSound, remainingBarks)
 }
 
-func verifyRubs(bellyRubs uint) uint {
-	if bellyRubs > maxBellyRubs {
+func verifyRubs(bellyRubs int) uint {
+	var result uint = uint(math.Abs(float64(bellyRubs)))
+
+	if result > maxBellyRubs {
 		fmt.Printf("This is way more than your neighbours can take! You can only rub the belly %v times at once. \n", maxBellyRubs)
-		bellyRubs = maxBellyRubs
+		result = maxBellyRubs
 	}
 
-	if bellyRubs > remainingBarks {
+	if result > remainingBarks {
 		fmt.Printf("I can't take that much belly rubbing now, you may rub %v times. \n", remainingBarks)
-		bellyRubs = remainingBarks
+		result = remainingBarks
 	}
 
-	return bellyRubs
+	return result
 }
 
 func rubBelly(bellyRubs uint) {

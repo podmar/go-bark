@@ -9,7 +9,7 @@ const dogName = "Lea"
 const maxBellyRubs uint = 5
 const numberOfBarks uint = 50
 
-var remainingBarks uint = 49
+var remainingBarks uint = numberOfBarks - 1
 
 func main() {
 

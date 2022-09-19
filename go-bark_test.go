@@ -8,20 +8,21 @@ type VerifyRubsTestValues struct {
 }
 
 func TestVerifyRubs(t *testing.T) {
-	// testVariable := 1
-	// expected := 1
-	// actual := verifyRubs(uint(testVariable))
 
 	testValues := []VerifyRubsTestValues{
+		{-50, 5},
+		{-3, 3},
+		{-1, 1},
 		{1, 1},
 		{0, 0},
 		{7, 5},
+		{21, 5},
 		{50, 5},
-		{-5, 0},
+		{-5, 5},
 	}
 
 	for _, testVar := range testValues {
-		actual := verifyRubs(uint(testVar.input))
+		actual := verifyRubs(int(testVar.input))
 		if actual != testVar.expected {
 			t.Errorf("verifyRubs(%v) FAILED. Expected %v, got %v\n", testVar.input, testVar.expected, actual)
 		} else {
